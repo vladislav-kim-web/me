@@ -30,6 +30,7 @@ header ul
 {
   position: relative;
   display: flex;
+  transition: 0.5s; /*задержка анимации*/
 }
 header ul li
 {
@@ -65,7 +66,6 @@ section
 section img
 {
   max-width: 350px;
-  margin-left: 30px;
 }
 section h2
 {
