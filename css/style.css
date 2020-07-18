@@ -1,17 +1,19 @@
+@import url('https://fonts.googleapis.com/css?family=Montserrat:400,500,700|Old+Standard+TT&display=swap&subset=cyrillic');
+
 *
 {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
   scroll-behavior: smooth; /*плавный скролл при переходе из меню*/
-  font-family: 'Arial', sans-serif;
+  font-family: "Montserrat", "Helvetica", "Arial", sans-serif;
 }
 header
 {
   position: fixed;
   width: 100%;
   height: 80px;
-  padding: 0 100px;
+  padding: 0 10%;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -20,8 +22,12 @@ header
 }
 header .logo
 {
+  opacity: 0;
+  animation: fadeIn 0.5s linear forwards;
+  animation-delay: 2s;
+
   color: #fff;
-  font-size: 30px;
+  font-size: 2em;
   text-decoration: none;
   letter-spacing: 2px;
   font-weight: 700;
@@ -31,11 +37,29 @@ header ul
   position: relative;
   display: flex;
   transition: 0.5s; /*задержка анимации*/
+
+  z-index: 100;
 }
 header ul li
 {
   position: relative;
   list-style: none;
+
+  opacity: 0;
+  animation: fadeInRight 0.5s linear forwards;
+}
+@keyframes fadeInRight
+{
+  0%
+  {
+    transform: translateX(150px);
+    opacity: 0;
+  }
+  100%
+  {
+    transform: translateX(0);
+    opacity: 1;
+  }
 }
 header ul li a
 {
@@ -45,6 +69,9 @@ header ul li a
   display: inline-block;
   text-decoration: none;
   cursor: pointer;
+
+  font-size: 1.2em;
+  letter-spacing: 1px;
 }
 header ul li a.active,
 header ul li a:hover
@@ -56,25 +83,26 @@ header ul li a:hover
 }
 section
 {
+  width: 100%;
   position: relative;
   justify-content: space-between;
   display: flex;
   align-items: center;
   min-height: 100vh;
-  padding: 150px 100px 100px;
+  padding: 150px 10% 100px;
 }
-section img
-{
-  max-width: 350px;
-}
+
 section h2
 {
+/*  letter-spacing: 1px;*/
   font-size: 2.5em;
   text-transform: uppercase;
 }
 section p
 {
   font-size: 18px;
+  letter-spacing: 1px;
+  line-height: 30px;
 }
 section a
 {
@@ -83,24 +111,301 @@ section a
   padding: 8px 10px;
   text-decoration: none;
   font-size: 18px;
-  background: #111;
-  color: #fff;
-  margin-top: 20px;
-}
-#portfolio a
-{
-  outline: none;
-  display: inline-block;
-  padding: 8px 10px;
-  text-decoration: none;
-  font-size: 18px;
+  /*
   background: #fff;
+  */
   color: #111;
   margin-top: 20px;
 }
-section:nth-child(odd) /*CSS псевдокласс  :nth-child() находит один или более элементов,
+
+section:nth-child(even) /*CSS псевдокласс  :nth-child() находит один или более элементов,
 основываясь на их позиции среди группы соседних элементов. even - чет, odd нечет*/
 {
   background: #111111;
   color: #ffffff;
+}
+::-webkit-scrollbar{
+  width: 12px;
+}
+::-webkit-scrollbar-thumb{
+  background: linear-gradient(#111, transparent);
+  border-radius: 6px;
+}
+::-webkit-scrollbar-thumb:hover{
+  background: linear-gradient(#205aff, transparent);
+}
+body
+{
+  margin: 0;
+  padding: 0;
+  min-height: 100vh;
+}
+.open
+{
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  pointer-events: none;
+  z-index: 10000;
+}
+.open .layer
+{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  transform-origin: top;
+  animation: open 1s ease-in-out forwards;
+}
+.open .layer:nth-child(1)
+{
+  background: #000;
+  z-index: 2;
+}
+.open .layer:nth-child(2)
+{
+  background: #205aff;
+  animation-delay: 1s;
+  z-index: 1;
+}
+@keyframes open
+{
+  0% {transform: scaleY(1);}
+  100% {transform: scaleY(0);}
+}
+#home
+{
+  /*position: absolute;*/
+  width: 100%;
+  height: 100%;
+  display: grid;
+  justify-content: center;
+  align-items: center;
+}
+.bannerText
+{
+  position: absolute;
+  top: 50%;
+  left: 10%;
+  transform: translateY(-50%);
+  max-width: 800px;
+}
+.bannerText h2,
+.bannerText h3
+{
+  position: relative;
+  margin: 0;
+  padding: 0;
+  display: inline-block;
+  transform-origin: left;
+  transform: scaleX(0);
+  animation: revealTextReverse 1s ease-in-out forwards;
+  text-transform: uppercase;
+}
+.bannerText h2
+{
+  font-size: 4em;
+  animation-delay: 2s;
+}
+.bannerText h3
+{
+  font-size: 2em;
+  animation-delay: 3s;
+  letter-spacing: 1px;
+
+}
+.bannerText h2:before,
+.bannerText h3:before
+{
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  background: #000;
+  width: 100%;
+  height: 100%;
+  transform-origin: right;
+  animation: revealText 1s ease-in-out forwards;
+  animation-delay: 3s;
+}
+.bannerText h3:before
+{
+  animation-delay: 4s;
+}
+@keyframes revealText
+{
+  0% {transform: scaleX(1);}
+  100% {transform: scaleX(0);}
+}
+@keyframes revealTextReverse
+{
+  0% {transform: scaleX(0);}
+  100% {transform: scaleX(1);}
+}
+.photo
+{
+  opacity: 0;
+  position: absolute;
+  right: 10%;
+  top: 50%;
+  transform: translateY(-50%);
+  animation: fadeIn 1s linear forwards;
+  animation-delay: 6s;
+  z-index: 100;
+  max-width: 350px;
+  border-radius: 20%;
+}
+@keyframes fadeIn
+{
+  0%
+  {
+    opacity: 0;
+  }
+  100%
+  {
+    opacity: 1;
+  }
+}
+header ul li:nth-child(1)
+{
+  animation-delay: 5s;
+}
+header ul li:nth-child(2)
+{
+  animation-delay: 5.25s;
+}
+header ul li:nth-child(3)
+{
+  animation-delay: 5.5s;
+}
+header ul li:nth-child(4)
+{
+  animation-delay: 5.75s;
+}
+.btn
+{
+  position: relative;
+  display: inline-block;
+  padding: 25px 30px;
+  margin: 40px 20px;
+  color: #205aff;
+  text-decoration: none;
+  text-transform: uppercase;
+  overflow: hidden;
+  transition: 0.5s;
+  letter-spacing: 2px;
+}
+
+.btn-color a:nth-child(1)
+{
+  filter: hue-rotate(40deg);
+}
+.btn-color a:nth-child(2)
+{
+  filter: hue-rotate(80deg);
+}
+.btn-color a:nth-child(3)
+{
+  filter: hue-rotate(120deg);
+}
+.btn-color a:nth-child(4)
+{
+  filter: hue-rotate(260deg);
+}
+
+.btn:hover
+{
+  background: #205aff;
+  color: #050801;
+  box-shadow: 0 0 5px #205aff,
+              0 0 25px #205aff,
+              0 0 50px #205aff,
+              0 0 200px #205aff;
+}
+.btn span
+{
+  position: absolute;
+  display: block; /* ? */
+}
+.btn span:nth-child(1)
+{
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, #205aff);
+  animation: animate1 2s linear infinite;
+}
+@keyframes animate1 {
+  0%
+  {
+    left: -100%;
+  }
+  50%, 100%
+  {
+    left: 100%;
+  }
+}
+.btn span:nth-child(2)
+{
+  top: -100%;
+  right: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(180deg, transparent, #205aff);
+  animation: animate2 2s linear infinite;
+  animation-delay: 0.5s;
+}
+@keyframes animate2 {
+  0%
+  {
+    top: -100%;
+  }
+  50%, 100%
+  {
+    top: 100%;
+  }
+}
+.btn span:nth-child(3)
+{
+  bottom: 0;
+  right: -100%;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(270deg, transparent, #205aff);
+  animation: animate3 2s linear infinite;
+  animation-delay: 1s;
+}
+@keyframes animate3 {
+  0%
+  {
+    right: -100%;
+  }
+  50%, 100%
+  {
+    right: 100%;
+  }
+}
+.btn span:nth-child(4)
+{
+  bottom: -100%;
+  left: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(360deg, transparent, #205aff);
+  animation: animate4 2s linear infinite;
+  animation-delay: 1.5s;
+}
+@keyframes animate4 {
+  0%
+  {
+    bottom: -100%;
+  }
+  50%, 100%
+  {
+    bottom: 100%;
+  }
 }
